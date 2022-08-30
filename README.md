@@ -1,21 +1,21 @@
 # sched_for_android  
 query sched policy for all android task  
   
-# sched_for_android.sh  
-# ***************************************************************  
-#   Author: duguowei  
-#   Date: 2022-8-8  
-#   Email: duguoweisz@gmail.com  
-#   Phone: 13417431640  
-#   WeChat: dgw_cn  
-#   Kernel: 5.10.66  
-#   Android: 12  
-# ***************************************************************  
-# Brief Description:  
-#  
-# Query the scheduling attributes (policy and RT (static) priority) of  
-# all threads currently alive on the system. Just a simple wrapper around  
-# chrt(1).  
+sched_for_android.sh  
+***************************************************************  
+   Author: duguowei  
+   Date: 2022-8-8  
+   Email: duguoweisz@gmail.com  
+   Phone: 13417431640  
+   WeChat: dgw_cn  
+   Kernel: 5.10.66  
+   Android: 12  
+***************************************************************  
+Brief Description:  
+ 
+Query the scheduling attributes (policy and RT (static) priority) of  
+all threads currently alive on the system. Just a simple wrapper around  
+chrt(1).  
   
 adb root  
 adb push sched_for_android.sh /data/local/tmp/  
@@ -85,3 +85,13 @@ duguowei@duguowei-HP-ProDesk-680-G4-MT:~$ adb shell /data/local/tmp/sched_for_an
    148     148                            mt-wdk    SCHED_OTHER    0  
    149     149                            wdtk-0     SCHED_FIFO   99     ***  
  ...
+
+
+Manual Test:  
+matisse:/ # chrt  -p 168  
+
+pid 168's current scheduling policy: SCHED_FIFO  
+pid 168's current scheduling priority: 50  
+matisse:/ # ps -eT | grep 168 | grep irq  
+root           168   168     2       0      0 irq_wait_for_interrupt 0 S irq/522-event_3  
+
